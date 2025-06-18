@@ -8,8 +8,10 @@ pipeline {
     stages {
         stage('Job1: Build Docker Image') {
             steps {
-                sh 'docker build -t $IMAGE_NAME:${BUILD_NUMBER} .'
-                sh 'docker push $IMAGE_NAME:${BUILD_NUMBER}'
+                   sh "docker build -t $IMAGE_NAME:${BUILD_NUMBER} ."
+                   sh "docker tag $IMAGE_NAME:${BUILD_NUMBER} $IMAGE_NAME:latest"
+                   sh "docker push $IMAGE_NAME:${BUILD_NUMBER}"
+                   sh "docker push $IMAGE_NAME:latest"
             }
         }
 
