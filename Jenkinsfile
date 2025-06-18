@@ -19,7 +19,7 @@ pipeline {
                   sh '''
                   docker run -d --name test-webapp -p 8080:80 pavaniambica/webapp:${BUILD_NUMBER}
                   sleep 5
-                  curl -f http://localhost:8080/index.html
+                  curl -f http://localhost:8888/index.html
                   docker stop test-webapp && docker rm test-webapp
                   '''
             }
