@@ -36,7 +36,7 @@ pipeline {
                 sshagent(['9a13c549-b72f-411f-bc76-12176ead5b1f']) {
                     echo "Deploying to production from branch: ${env.GIT_BRANCH}"
                     sh '''
-                    ssh -o StrictHostKeyChecking=no ubuntu@43.204.211.166"
+                    ssh -o StrictHostKeyChecking=no ubuntu@43.204.211.166
                     docker pull $IMAGE_NAME:${BUILD_NUMBER} &&
                     docker stop webapp || true &&
                     docker rm webapp || true &&
