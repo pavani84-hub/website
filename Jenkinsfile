@@ -28,7 +28,7 @@ pipeline {
 
         stage('Job3: Deploy to Prod') {
             when {
-                branch 'master'
+                branch 'refs/remotes/origin/master'
             }
             steps {
                 sshagent(['9a13c549-b72f-411f-bc76-12176ead5b1f']) {
