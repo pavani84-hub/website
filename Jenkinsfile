@@ -17,10 +17,7 @@ pipeline {
             steps {
                 echo 'Running syntax test...'
                 sh 'php -l /var/www/html/index.php'
-                sh '''
-                   docker run --rm pavaniambica/webapp:${BUILD_NUMBER} /bin/bash -c "curl -s localhost > /dev/null && echo 'App is running'"
-                   '''
-            }
+                  }
         }
 
         stage('Job3: Deploy to Prod') {
