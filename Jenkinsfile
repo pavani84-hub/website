@@ -27,19 +27,22 @@ pipeline {
         }
 
         stage('Job3: Deploy to Prod') {
-           when {
+            when {
         expression {
             return env.GIT_BRANCH ==~ /.*master/
-        }
-    }
-    steps {
-        echo "Deploying to production from branch: ${env.GIT_BRANCH}"
-        sh '''
-        docker rm -f prod-webapp || true
-        docker pull pavaniambica/webapp:${BUILD_NUMBER}
-        docker run -d --name prod-webapp -p 9090:80 pavaniambica/webapp:${BUILD_NUMBER}
-        '''
-    }
+                 }
+              }
+            steps {
+                sshagent(['9a13c549-b72f-411f-bc76-12176ead5b1f']) {
+                    echo "Deploying to production from branch: ${env.GIT_BRANCH}"
+                    sh '''
+                    ssh -o StrictHostKeyChecking=no ubuntu@43.204.211.166"
+                    docker pull $IMAGE_NAME:${BUILD_NUMBER} &&
+                    docker stop webapp || true &&
+                    docker rm webapp || true &&
+                    docker run -d -p 80:80 --name webapp $IMAGE_NAME:${BUILD_NUMBER}
+                    "'''
+                }
             }
         }
     }
