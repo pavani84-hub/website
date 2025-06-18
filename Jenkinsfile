@@ -41,7 +41,7 @@ pipeline {
                     docker stop webapp || true &&
                     docker rm webapp || true &&
                     docker run -d -p 80:80 --name webapp $IMAGE_NAME:${BUILD_NUMBER}
-                    "'''
+                    '''
                 }
             }
         }
